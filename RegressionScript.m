@@ -47,7 +47,7 @@ for i = 1:length(Types)
                         'TypicalX', [1e-11, 1], ...
                         'StepTolerance', 1e-12);
     
-    p_regress = lsqnonlin(@(p_regress) CalculateSquaredDifference(p_regress, Current), [D, Pi], [0, 0],[], opts);
+    p_regress = lsqnonlin(@(p_regress) CalculateSquaredDifference(p_regress, Current), [D, Pi], [0, 0],[1e-8 2], opts);
     Current.D = p_regress(1);
     Current.Pi = p_regress(2);
     
@@ -59,7 +59,7 @@ for i = 1:length(Types)
     n = length(Current.t);
     for j = 1:N
         index = randsample(n, n, true);
-        p_regress = lsqnonlin(@(p_regress) CalculateSquaredDifference(p_regress, Current, index), [D, Pi], [0, 0],[1e-7 10], opts);
+        p_regress = lsqnonlin(@(p_regress) CalculateSquaredDifference(p_regress, Current, index), [D, Pi], [0, 0],[1e-8 2], opts);
         Current.Bootstrap.D(j) = p_regress(1);
         Current.Bootstrap.Pi(j) = p_regress(2);
         
