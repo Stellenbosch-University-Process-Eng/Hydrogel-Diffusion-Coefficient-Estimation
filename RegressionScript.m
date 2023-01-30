@@ -59,7 +59,7 @@ for i = 1:length(Types)
     n = length(Current.t);
     for j = 1:N
         index = randsample(n, n, true);
-        p_regress = lsqnonlin(@(p_regress) CalculateSquaredDifference(p_regress, Current, index), [D, Pi], [0, 1e-7],[], opts);
+        p_regress = lsqnonlin(@(p_regress) CalculateSquaredDifference(p_regress, Current, index), [D, Pi], [0, 0],[1e-7 Inf], opts);
         Current.Bootstrap.D(j) = p_regress(1);
         Current.Bootstrap.Pi(j) = p_regress(2);
         
